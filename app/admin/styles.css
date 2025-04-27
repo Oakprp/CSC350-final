@@ -1,306 +1,291 @@
-/* รีเซ็ตสไตล์พื้นฐาน */
+/* รีเซ็ตสไตล์พื้นฐานสำหรับทุก element เพื่อให้มั่นใจว่าไม่มี margin/padding ที่ไม่ต้องการ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* สไตล์หน้า login และ dashboard */
+/* สไตล์สำหรับหน้า login และ dashboard  */
 .login-page, .dashboard-page {
-  min-height: 100vh;
+  min-height: 100vh; /* ความสูงขั้นต่ำเต็มหน้าจอ */
   display: flex;
-  flex-direction: column;
-  background-color: #f4f4f9;
+  flex-direction: column; 
+  background-color: #ffffff; 
 }
 
-/* Header สำหรับ login และ dashboard */
+/* สไตล์สำหรับ header ของหน้า login และ dashboard */
 .login-header, .dashboard-header {
-  padding: 1rem 1.5rem;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem; 
+  background-color: #ffffff; 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
 }
 
-/* ปุ่ม Back to Attractions */
+/* สไตล์สำหรับปุ่ม "กลับไปยังหน้าเดิม" ในหน้า login */
 .back-button {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #0070f3;
-  text-decoration: none;
+  gap: 0.5rem; 
+  color: #0070f3; 
   font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  font-weight: 500; 
+  padding: 0.5rem 1rem; 
   transition: background-color 0.2s, color 0.2s;
 }
 
 .back-button:hover {
-  background-color: #e6f1fe;
-  color: #005bb5;
+  background-color: #e6f1fe; 
+  color: #005bb5; 
 }
 
 .back-button:active {
   background-color: #cce4ff;
 }
 
-/* ปุ่ม Logout */
+/* สไตล์สำหรับปุ่ม "Logout" */
 .logout-button {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #dc3545;
-  color: #fff;
+  gap: 0.5rem; 
+  background-color: #dc3545; 
+  color: #fff; 
   font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 500; 
+  padding: 0.5rem 1rem; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  transition: background-color 0.2s; 
 }
 
 .logout-button:hover {
-  background-color: #c82333;
+  background-color: #c82333; 
 }
 
 .logout-button:active {
-  background-color: #b21f2d;
+  background-color: #b21f2d; 
 }
 
-/* Container ของหน้า login และ dashboard */
+/* สไตล์สำหรับ container หลักของหน้า login และ dashboard */
 .login-container, .dashboard-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  flex: 1;
+  margin: 0 auto; 
+  flex: 1; 
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; 
+  justify-content: center; 
 }
 
+/* ปรับแต่ง container สำหรับหน้า dashboard ให้กว้างขึ้นและจัดแนวด้านบน */
 .dashboard-container {
-  max-width: 800px;
-  justify-content: flex-start;
+  max-width: 800px; /* ความกว้างสูงสุดสำหรับหน้า dashboard */
+  justify-content: flex-start; /* จัดแนวด้านบน */
 }
 
-/* ฟอร์ม login และ food */
+/* สไตล์สำหรับฟอร์มในหน้า login และ dashboard */
 .login-form, .food-form {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: #ffffff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  flex-direction: column; 
+  gap: 15px; 
+  background-color: #ffffff; 
+  padding: 1.5rem; 
+  border-radius: 8px; 
+  width: 100%; 
 }
 
-/* Checkbox สำหรับแสดงรหัสผ่าน */
-.show-password {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.show-password input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: #0070f3; /* สีน้ำเงินเมื่อเลือก */
-  cursor: pointer;
-}
-
-.show-password label {
-  cursor: pointer;
-  user-select: none;
-}
-
-/* หัวข้อ */
+/* สไตล์สำหรับหัวข้อ */
 h1 {
-  font-size: 2rem;
+  font-size: 2rem; 
   color: #333;
-  margin-bottom: 1rem;
-  text-align: center;
+  margin-bottom: 1rem; 
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.5rem; 
   color: #333;
-  margin: 20px 0 10px;
+  margin: 20px 0 10px; 
 }
 
-/* กลุ่มฟอร์ม */
+/* สไตล์สำหรับกลุ่มฟอร์ม (ช่องกรอกข้อมูล) */
 .form-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
 }
 
 .form-group label {
   font-size: 1rem;
-  color: #555;
-  margin-bottom: 5px;
+  color: #555; 
+  margin-bottom: 5px; 
 }
 
 .form-group input {
-  padding: 8px;
+  padding: 8px; 
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
 }
 
 .form-group input:focus {
-  outline: none;
-  border-color: #0070f3;
-  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+  outline: none; 
+  border-color: #0070f3; 
 }
 
-/* ข้อความ error */
+/* สไตล์สำหรับข้อความ error */
 .error {
-  color: #e53e3e;
+  color: #e53e3e; 
   font-size: 0.95rem;
-  margin: 10px 0;
-  text-align: center;
+  margin: 10px 0; 
+  text-align: center; 
 }
 
-/* ปุ่มทั่วไป */
+/* สไตล์สำหรับปุ่มทั่วไป (ใช้ใน login และ dashboard) */
 .submit-button, .edit-button, .delete-button {
-  padding: 8px 16px;
+  padding: 8px 16px; 
   font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  transition: background-color 0.2s; 
 }
 
+/* ปุ่ม submit (ใช้ในฟอร์ม login และ dashboard) */
 .submit-button {
-  background: #0070f3;
-  color: #fff;
+  background: #0070f3; /* พื้นหลังสีน้ำเงิน */
+  color: #fff; /* ตัวอักษรสีขาว */
 }
 
 .submit-button:hover {
-  background: #005bb5;
+  background: #005bb5; 
 }
 
+/* ปุ่ม edit ในหน้า dashboard */
 .edit-button {
-  background: #28a745;
-  color: #fff;
-  margin-right: 10px;
+  background: #28a745; 
+  color: #fff; 
+  margin-right: 10px; 
 }
 
 .edit-button:hover {
-  background: #218838;
+  background: #218838; 
 }
 
+/* ปุ่ม delete ในหน้า dashboard */
 .delete-button {
-  background: #dc3545;
-  color: #fff;
+  background: #dc3545; 
+  color: #fff; 
 }
 
 .delete-button:hover {
-  background: #c82333;
+  background: #c82333; 
 }
 
-/* กริดอาหาร */
+/* สไตล์สำหรับกริดแสดงรายการอาหารในหน้า dashboard */
 .food-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
 }
 
-/* การ์ดอาหาร */
+/* สไตล์สำหรับการ์ดอาหารในหน้า dashboard */
 .food-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: #fff; 
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  padding: 15px; 
 }
 
+/* หัวข้อใน food card */
 .food-card h3 {
   font-size: 1.25rem;
-  color: #333;
-  margin: 0 0 10px;
+  color: #333; 
+  margin: 0 0 10px; 
 }
 
+/* ข้อความใน food card */
 .food-card p {
   font-size: 0.95rem;
-  color: #555;
-  margin: 5px 0;
+  color: #555; 
+  margin: 5px 0; 
 }
 
+/* รายการสารอาหารใน food card */
 .food-card ul {
-  list-style: none;
+  list-style: none; 
   padding: 0;
-  margin: 10px 0;
+  margin: 10px 0; 
 }
 
+/* แต่ละสารอาหารในราย */
 .food-card li {
   font-size: 0.9rem;
-  color: #555;
+  color: #555; 
 }
 
+/* รูปภาพใน food card */
 .food-image {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  margin-bottom: 10px;
+  width: 100%; 
+  height: 150px; 
+  object-fit: cover; 
+  margin-bottom: 10px; 
 }
 
+/* ปุ่ม actions (edit/delete) ใน food card */
 .food-actions {
   display: flex;
-  gap: 10px;
+  gap: 10px; 
 }
 
-/* Responsive Design */
+/* สไตล์สำหรับ responsive design */
 @media (max-width: 768px) {
   .food-grid {
     grid-template-columns: 1fr;
   }
 
+  /* ลด padding ของ container */
   .login-container, .dashboard-container {
     padding: 15px;
   }
 
+  /* ลด padding ของฟอร์ม */
   .login-form, .food-form {
     padding: 1rem;
   }
 
+  /* จัด header ในหน้า dashboard ให้เป็นแนวตั้ง */
   .dashboard-header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: flex-start; 
+    gap: 1rem; 
   }
 
+  /* ปรับปุ่ม logout ให้เต็มความกว้าง */
   .logout-button {
     width: 100%;
-    justify-content: center;
+    justify-content: center; 
   }
 }
 
 @media (max-width: 480px) {
+  /* ลดขนาดตัวอักษรของหัวข้อ */
   h1 {
     font-size: 1.5rem;
   }
 
+  /* ลดขนาดตัวอักษรของ input */
   .form-group input {
     font-size: 0.95rem;
   }
 
+  /* ลดขนาดตัวอักษรและ padding ของปุ่ม */
   .back-button, .logout-button {
     font-size: 0.9rem;
     padding: 0.4rem 0.8rem;
   }
 
+  /* ลด padding ของ header */
   .login-header, .dashboard-header {
     padding: 0.8rem 1rem;
   }
 
+  /* ปรับขนาดตัวอักษรและ checkbox ของ .show-password */
   .show-password {
     font-size: 0.85rem;
   }
@@ -311,24 +296,29 @@ h2 {
   }
 }
 
-/* ลบ .back-link เพราะย้ายไปใช้ .login-header */
+/* ปิดการใช้งาน .back-link เพราะใช้ .login-header แทน */
 .back-link {
   display: none;
 }
 
+/* สไตล์สำหรับ wrapper ของช่องรหัสผ่าน (ใช้ในหน้า login เพื่อวางปุ่มแสดง/ซ่อนรหัสผ่าน) */
 .password-wrapper {
-  position: relative;
+  position: relative; 
 }
+
+/* สไตล์สำหรับปุ่มแสดง/ซ่อนรหัสผ่านในหน้า login */
 .toggle-password {
-  position: absolute;
-  right: 10px;
+  position: absolute; 
+  right: 10px; 
   top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #555;
+  transform: translateY(-50%); 
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  color: #555; 
 }
+
+/* เปลี่ยนสีไอคอนเมื่อ hover */
 .toggle-password:hover {
-  color: #0070f3;
+  color: #0070f3; 
 }

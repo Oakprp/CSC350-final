@@ -18,13 +18,13 @@ export async function POST(request) {
     }
     if (username !== adminCredentials.username) {
       console.log('Invalid username:', username);
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
     }
     const isPasswordValid = bcrypt.compareSync(password, adminCredentials.password);
     console.log('Password valid:', isPasswordValid);
     if (!isPasswordValid) {
       console.log('Invalid password for username:', username);
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
     }
     const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET || 'your-secret-key', { expiresIn: '1h' });
     console.log('Token generated:', token);

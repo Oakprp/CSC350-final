@@ -1,72 +1,86 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { useRouter } from 'next/navigation';
-import { FiLogOut } from 'react-icons/fi'; // เพิ่มไอคอนสำหรับ Logout
-import '../styles.css';
+import { FiLogOut } from 'react-icons/fi'; 
+import '../styles.css'; 
 
 export default function AdminDashboard() {
+  // State สำหรับเก็บรายการอาหารทั้งหมดที่ดึงมาจาก API
   const [foods, setFoods] = useState([]);
+  
+  // State สำหรับเก็บข้อมูลฟอร์ม (ใช้ทั้งเพิ่มและแก้ไขอาหาร)
   const [form, setForm] = useState({
     food_name: '',
-    category: '',
-    serving_size: '',
-    image_url: '',
-    protein: '',
-    fat: '',
-    carbohydrates: '',
-    fiber: '',
-    sugar: '',
-    sodium: ''
+    category: '', 
+    serving_size: '', 
+    image_url: '', 
+    protein: '', 
+    fat: '', 
+    carbohydrates: '', 
+    fiber: '', 
+    sugar: '', 
+    sodium: '' 
   });
+  
+  // เก็บ ID ของอาหารที่กำลังแก้ไข
   const [editingId, setEditingId] = useState(null);
+  
+  // error
   const [error, setError] = useState('');
+  
+  // เปลี่ยนหน้า
   const router = useRouter();
 
+  // ดึงข้อมูลอาหารเมื่อ component โหลดครั้งแรก
   useEffect(() => {
-    fetchFoods();
+    fetchFoods(); // เรียกฟังก์ชันเพื่อดึงข้อมูลอาหารจาก API
   }, []);
 
+  // ดึงข้อมูลอาหารทั้งหมดจาก API
   const fetchFoods = async () => {
     try {
-      console.log('Fetching foods...');
+      console.log('Fetching foods...'); 
       const res = await fetch('/api/admin/foods', {
         method: 'GET',
         credentials: 'include',
       });
-      console.log('Fetch foods response status:', res.status);
-      if (res.ok) {
-        const data = await res.json();
-        setFoods(data);
-        setError('');
+      console.log('Fetch foods response status:', res.status); 
+      if (res.ok) { // ถ้า response สำเร็จ
+        const data = await res.json(); // แปลง response เป็น JSON
+        setFoods(data); // อัปเดต state ด้วยข้อมูลอาหารที่ได้
+        setError(''); // ล้างข้อความ error
       } else {
-        const text = await res.text();
-        console.error('Fetch foods response text:', text);
+        const text = await res.text(); // ดึง response เป็น text ถ้าไม่ใช่ JSON
+        console.error('Fetch foods response text:', text); // Log ข้อผิดพลาด
         try {
-          const data = JSON.parse(text);
-          setError(data.error || 'Failed to fetch foods');
+          const data = JSON.parse(text); // พยายาม parse เป็น JSON
+          setError(data.error || 'Failed to fetch foods'); // แสดงข้อผิดพลาดจาก API
         } catch {
           setError('Received non-JSON response. Check if redirected to login.');
         }
       }
     } catch (err) {
-      console.error('Fetch foods error:', err);
-      setError('An error occurred while fetching foods');
+      console.error('Fetch foods error:', err); // Log error ถ้าการ fetch ล้มเหลว
+      setError('An error occurred while fetching foods'); // แสดงข้อผิดพลาดทั่วไป
     }
   };
 
+  // สำหรับจัดการการเพิ่มหรือแก้ไขอาหาร
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // ป้องกันการรีเฟรชหน้าเมื่อกด submit
+    // กำหนด URL และ method ตามสถานะ (เพิ่มหรือแก้ไข)
     const url = editingId ? `/api/admin/foods/${editingId}` : '/api/admin/foods';
     const method = editingId ? 'PUT' : 'POST';
     try {
       console.log('Submitting form:', form, 'Method:', method, 'URL:', url);
+      // ส่ง request ไปยัง API เพื่อเพิ่มหรือแก้ไขอาหาร
       const res = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', // กำหนดประเภทข้อมูลเป็น JSON
         },
-        credentials: 'include',
+        credentials: 'include', 
         body: JSON.stringify({
           ...form,
           protein: form.protein ? parseFloat(form.protein) : null,
@@ -77,8 +91,9 @@ export default function AdminDashboard() {
           sodium: form.sodium ? parseFloat(form.sodium) : null
         }),
       });
-      console.log('Submit response status:', res.status);
-      if (res.ok) {
+      console.log('Submit response status:', res.status); 
+      if (res.ok) { // ถ้าการส่งสำเร็จ
+        // รีเซ็ตฟอร์มหลังจากส่งสำเร็จ
         setForm({
           food_name: '',
           category: '',
@@ -91,15 +106,15 @@ export default function AdminDashboard() {
           sugar: '',
           sodium: ''
         });
-        setEditingId(null);
-        fetchFoods();
-        setError('');
+        setEditingId(null); // ล้างสถานะการแก้ไข
+        fetchFoods(); // ดึงข้อมูลอาหารใหม่เพื่ออัปเดตหน้า
+        setError(''); // ล้างข้อความ error
       } else {
         const text = await res.text();
         console.error('Submit response text:', text);
         try {
-          const data = JSON.parse(text);
-          setError(data.error || 'Failed to save food');
+          const data = JSON.parse(text); 
+          setError(data.error || 'Failed to save food'); 
         } catch {
           setError('Received non-JSON response. Check if redirected to login.');
         }
@@ -110,6 +125,7 @@ export default function AdminDashboard() {
     }
   };
 
+  // สำหรับเตรียมเพื่อแก้ไขอาหาร
   const handleEdit = (food) => {
     setForm({
       food_name: food.food_name,
@@ -126,48 +142,52 @@ export default function AdminDashboard() {
     setEditingId(food.food_id);
   };
 
+  // สำหรับลบอาหาร
   const handleDelete = async (id) => {
-    if (!id || isNaN(id)) {
+    if (!id || isNaN(id)) { 
       setError('Invalid food ID');
       console.error('Invalid food ID:', id);
       return;
     }
     if (!confirm('Are you sure you want to delete this food?')) return;
     try {
-      console.log('Deleting food with ID:', id);
-      const url = `/api/admin/foods/${id}`;
+      console.log('Deleting food with ID:', id); 
+      const url = `/api/admin/foods/${id}`; 
       console.log('DELETE URL:', url);
+      // ส่ง DELETE request ไปยัง API
       const res = await fetch(url, {
         method: 'DELETE',
-        credentials: 'include',
+        credentials: 'include', 
       });
-      console.log('Delete response status:', res.status);
-      console.log('Delete response headers:', Object.fromEntries(res.headers.entries()));
-      if (res.ok) {
-        fetchFoods();
-        setError('');
+      console.log('Delete response status:', res.status); 
+      console.log('Delete response headers:', Object.fromEntries(res.headers.entries())); 
+      if (res.ok) { 
+        fetchFoods(); 
+        setError(''); 
       } else {
-        const text = await res.text();
-        console.error('Delete response text:', text);
+        const text = await res.text(); 
+        console.error('Delete response text:', text); 
         try {
-          const data = JSON.parse(text);
-          setError(data.error || 'Failed to delete food');
+          const data = JSON.parse(text); 
+          setError(data.error || 'Failed to delete food'); 
         } catch {
           setError('Received non-JSON response. Likely a 404 or redirect.');
         }
       }
     } catch (err) {
-      console.error('Delete error:', err);
+      console.error('Delete error:', err); 
       setError('An error occurred while deleting food');
     }
   };
 
+  // สำหรับ logout
   const handleLogout = () => {
-    console.log('Logging out...');
+    console.log('Logging out...'); 
     document.cookie = 'token=; Path=/; Max-Age=0';
-    router.push('/attractions');
+    router.push('/attractions'); // เปลี่ยนหน้าไปยังหน้าแรก
   };
 
+  // สำหรับแสดงหน้า dashboard
   return (
     <div className="dashboard-page">
       <header className="dashboard-header">
@@ -178,7 +198,9 @@ export default function AdminDashboard() {
         </button>
       </header>
       <div className="dashboard-container">
+        {/* เปลี่ยนตามสถานะแก้ไข/เพิ่ม */}
         <h2>{editingId ? 'Edit Food' : 'Add New Food'}</h2>
+        {/* สำหรับเพิ่มหรือแก้ไขอาหาร */}
         <form onSubmit={handleSubmit} className="food-form">
           <div className="form-group">
             <label htmlFor="food_name">Food Name:</label>
