@@ -1,47 +1,41 @@
-import { mysqlPool } from '@/utils/db'; // Import MySQL connection pool จาก utils/db เพื่อเชื่อมต่อกับฐานข้อมูล
-import { NextResponse } from 'next/server'; // Import NextResponse สำหรับส่ง response กลับไปยัง client
-import jwt from 'jsonwebtoken'; // Import jsonwebtoken สำหรับการจัดการ token และยืนยันตัวตน
+import { mysqlPool } from '@/utils/db'; //เชื่อมต่อกับฐานข้อมูล
+import { NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
 
-// ฟังก์ชันสำหรับตรวจสอบการยืนยันตัวตนของผู้ใช้ (authentication) โดยใช้ JWT token
+// ฟังก์ชันสำหรับตรวจสอบการยืนยันตัวตนของผู้ใช้ โดยใช้ JWT token
 const authenticate = (request) => {
-  // ดึง token จาก header Authorization หรือจาก cookie
   const token = request.headers.get('authorization')?.split(' ')[1] || request.cookies.get('token')?.value;
   
-  // ถ้าไม่มี token ใน request
   if (!token) {
-    console.log('No token found in request'); // Log เพื่อ debug
-    return false; // คืนค่า false เพื่อระบุว่าไม่ผ่านการยืนยันตัวตน
+    console.log('No token found in request'); 
+    return false; 
   }
   
   try {
-    // ตรวจสอบ token ด้วย JWT secret (ใช้ environment variable หรือค่า default)
     jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
-    console.log('Token verified successfully'); // Log เมื่อ token ถูกต้อง
+    console.log('Token verified successfully'); 
     return true; // คืนค่า true เพื่อระบุว่าผ่านการยืนยันตัวตน
   } catch (error) {
-    console.log('Token verification failed:', error.message); // Log ข้อผิดพลาดถ้า token ไม่ถูกต้อง
-    return false; // คืนค่า false ถ้า token ไม่ถูกต้องหรือหมดอายุ
+    console.log('Token verification failed:', error.message); 
+    return false; 
   }
 };
 
-// API handler สำหรับ DELETE request เพื่อลบอาหารตาม ID
 export async function DELETE(request, { params }) {
   // ตรวจสอบการยืนยันตัวตน
   if (!authenticate(request)) {
-    // ถ้าไม่ผ่านการยืนยันตัวตน ส่ง response 401 Unauthorized
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  // ดึง foodId จาก params (URL เช่น /api/admin/foods/[id])
   const foodId = params.id;
   
   // ตรวจสอบว่า foodId ถูกต้องหรือไม่
   if (!foodId || isNaN(foodId)) {
-    return NextResponse.json({ error: 'Invalid food ID' }, { status: 400 }); // ส่ง 400 Bad Request ถ้า ID ไม่ถูกต้อง
+    return NextResponse.json({ error: 'Invalid food ID' }, { status: 400 });
   }
 
-  console.log('DELETE request received for foodId:', foodId); // Log เพื่อ debug
-  console.log('Request headers:', Object.fromEntries(request.headers.entries())); // Log headers เพื่อ debug
+  console.log('DELETE request received for foodId:', foodId); 
+  console.log('Request headers:', Object.fromEntries(request.headers.entries()));
 
   try {
     // สร้าง promise pool สำหรับการ query ฐานข้อมูล
@@ -55,24 +49,19 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ error: 'Food not found' }, { status: 404 }); // ส่ง 404 Not Found ถ้าไม่พบอาหาร
     }
     
-    // ถ้าลบสำเร็จ ส่ง response ว่า "Food deleted"
     return NextResponse.json({ message: 'Food deleted' });
   } catch (error) {
-    console.error('Database error in DELETE:', error); // Log ข้อผิดพลาดจากฐานข้อมูล
-    // ส่ง 500 Internal Server Error พร้อมข้อความ error
+    console.error('Database error in DELETE:', error);
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }
 
 // API handler สำหรับ PUT request เพื่ออัปเดตข้อมูลอาหารตาม ID
 export async function PUT(request, { params }) {
-  // ตรวจสอบการยืนยันตัวตน
   if (!authenticate(request)) {
-    // ถ้าไม่ผ่านการยืนยันตัวตน ส่ง response 401 Unauthorized
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  // ดึง foodId จาก params (URL เช่น /api/admin/foods/[id])
   const foodId = params.id;
   
   // ตรวจสอบว่า foodId ถูกต้องหรือไม่
@@ -92,7 +81,6 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 }); // ส่ง 400 ถ้าขาดฟิลด์
     }
 
-    // สร้าง promise pool สำหรับการ query ฐานข้อมูล
     const promisePool = mysqlPool.promise();
     
     // อัปเดตข้อมูลในตาราง foods
@@ -103,7 +91,7 @@ export async function PUT(request, { params }) {
 
     // ตรวจสอบว่ามีการอัปเดตข้อมูลหรือไม่
     if (foodResult.affectedRows === 0) {
-      return NextResponse.json({ error: 'Food not found' }, { status: 404 }); // ส่ง 404 ถ้าไม่พบอาหาร
+      return NextResponse.json({ error: 'Food not found' }, { status: 404 });
     }
 
     // ตรวจสอบว่ามีข้อมูลสารอาหารในตาราง nutrients หรือไม่
@@ -126,11 +114,9 @@ export async function PUT(request, { params }) {
       );
     }
 
-    // ส่ง response ว่า "Food updated" เมื่ออัปเดตสำเร็จ
     return NextResponse.json({ message: 'Food updated' });
   } catch (error) {
-    console.error('Database error in PUT:', error); // Log ข้อผิดพลาดจากฐานข้อมูล
-    // ส่ง 500 Internal Server Error พร้อมข้อความ error
+    console.error('Database error in PUT:', error);
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }
