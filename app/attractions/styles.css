@@ -1,361 +1,359 @@
-/* รีเซ็ตสไตล์พื้นฐาน */
+/* รีเซ็ตสไตล์พื้นฐานสำหรับทุก element เพื่อให้มั่นใจว่าไม่มี margin/padding ที่ไม่ต้องการ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Container หลัก */
+/* สไตล์สำหรับ container หลักของหน้า attractions (ใช้ใน app/attractions/page.jsx) */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 20px; 
 }
 
-/* Header */
+/* สไตล์สำหรับ header ของหน้า attractions */
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between; 
+  margin-bottom: 20px; 
 }
 
+/* สไตล์สำหรับหัวข้อหลัก (เช่น "รายการอาหาร") */
 h1 {
-  font-size: 2rem;
-  color: #333;
+  font-size: 2rem; /* ขนาดตัวอักษร */
+  color: #333; /* สีตัวอักษรเทเข้ม */
 }
 
-/* ปุ่มสำหรับผู้ดูแล */
+/* สไตล์สำหรับปุ่ม "สำหรับผู้ดูแล" ที่นำไปหน้า login (ใช้ใน app/attractions/page.jsx) */
 .admin-button {
-  padding: 8px 16px;
-  background: #0070f3;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 8px 16px; 
+  background: #0070f3; 
+  color: #fff; 
+  border-radius: 6px; 
+  font-size: 1.1rem;
   transition: background-color 0.3s;
 }
 
 .admin-button:hover {
-  background: #005bb5;
+  background: #005bb5; 
 }
 
-/* ตัวกรองหมวดหมู่ */
+/* สไตล์สำหรับตัวกรองหมวดหมู่ (ใช้ใน app/attractions/page.jsx) */
 .filter {
-  margin-bottom: 20px;
+  margin-bottom: 20px; 
 }
 
 .filter label {
   font-size: 1rem;
-  margin-right: 10px;
+  margin-right: 10px; 
   color: #555;
 }
 
 .filter select {
-  padding: 8px;
+  padding: 8px; 
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: border-color 0.3s;
+  border: 1px solid #ccc; 
+  border-radius: 6px;
+  cursor: pointer; 
+  transition: border-color 0.3s; 
 }
 
 .filter select:focus {
-  outline: none;
-  border-color: #0070f3;
-  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+  outline: none; 
+  border-color: #0070f3; 
 }
 
-/* ข้อความสถานะ */
+/* สไตล์สำหรับข้อความสถานะ (เช่น "กำลังโหลด..." หรือ "ไม่พบอาหาร") */
 .message {
-  text-align: center;
-  color: #666;
+  text-align: center; 
+  color: #666; 
   font-size: 1.1rem;
 }
 
-/* กริดอาหาร */
+/* สไตล์สำหรับกริดแสดงรายการอาหารในหน้า attractions */
 .food-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px; 
 }
 
-/* การ์ดอาหาร */
+/* สไตล์สำหรับการ์ดอาหารแต่ละใบ */
 .food-card {
-  position: relative;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative; 
+  border-radius: 12px; 
+  overflow: hidden; 
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .food-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px); 
 }
 
-/* Checkbox สำหรับเลือกอาหาร */
+/* สไตล์สำหรับ checkbox เพื่อเลือกอาหารในหน้า attractions */
 .food-select {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
+  position: absolute; 
+  bottom: 12px; 
+  right: 12px; 
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-radius: 50%; 
+  backdrop-filter: blur(8px); 
   transition: background-color 0.3s;
 }
 
 .food-select input[type="checkbox"] {
-  appearance: none;
+  appearance: none; 
   -webkit-appearance: none;
   -moz-appearance: none;
   width: 24px;
   height: 24px;
-  background-color: transparent;
-  border: 2px solid #0070f3;
-  border-radius: 50%;
-  cursor: pointer;
+  background-color: transparent; 
+  border: 2px solid #0070f3; 
+  border-radius: 50%; 
+  cursor: pointer; 
   position: relative;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, border-color 0.3s; 
 }
 
 .food-select input[type="checkbox"]:hover {
-  background-color: rgba(0, 112, 243, 0.1);
+  background-color: rgba(0, 112, 243, 0.1); 
 }
 
 .food-select input[type="checkbox"]:checked {
-  background-color: #0070f3;
-  border-color: #0070f3;
+  background-color: #0070f3; 
+  border-color: #0070f3; 
 }
 
 .food-select input[type="checkbox"]:checked::after {
-  content: '\2713';
+  content: '\2713'; 
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%) scale(0); 
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-  animation: checkmark 0.2s ease-out forwards;
+  animation: checkmark 0.2s ease-out forwards; 
 }
 
-/* อนิเมชันสำหรับเครื่องหมายติ๊ก */
 @keyframes checkmark {
   0% {
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0); 
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2); 
   }
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1); 
   }
 }
 
-/* รูปภาพอาหาร */
+/* สไตล์สำหรับรูปภาพอาหารใน food card */
 .food-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+  width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
   display: block;
 }
 
+/* สไตล์สำหรับ placeholder เมื่อไม่มีรูปภาพ */
 .no-image {
-  width: 100%;
-  height: 200px;
-  background: #f5f5f5;
+  width: 100%; 
+  height: 200px; 
+  background: #ffffff; 
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666;
+  align-items: center; 
+  justify-content: center; 
+  color: #666; 
   font-size: 1rem;
 }
 
-/* รายละเอียดอาหาร */
+/* สไตล์สำหรับส่วนรายละเอียดอาหารใน food card */
 .food-details {
-  padding: 15px;
-  background: #fff;
+  padding: 15px; 
+  background: #ffffff; 
 }
 
 .food-details h2 {
-  font-size: 1.5rem;
-  margin: 0 0 8px;
-  color: #333;
+  font-size: 1.5rem; 
+  margin: 0 0 8px; 
+  color: #333; 
 }
 
 .food-details p {
-  margin: 4px 0;
-  color: #555;
+  margin: 4px 0; 
+  color: #555; 
   font-size: 0.95rem;
 }
 
 .food-details p strong {
-  color: #333;
+  color: #333; /* สีตัวอักษรเทเข้มสำหรับข้อความที่เป็น strong */
 }
 
-/* สารอาหาร */
+/* สไตล์สำหรับส่วนสารอาหารใน food card */
 .nutrients {
-  margin-top: 10px;
+  margin-top: 10px; 
 }
 
 .nutrients h3 {
   font-size: 1rem;
-  margin: 0 0 5px;
-  color: #333;
+  margin: 0 0 5px; 
+  color: #333; 
 }
 
 .nutrients ul {
-  list-style: none;
+  list-style: none; 
   padding: 0;
   margin: 0;
 }
 
 .nutrients li {
   font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 3px;
+  color: #555; 
+  margin-bottom: 3px; 
 }
 
-/* ปุ่มคำนวณสารอาหาร */
+/* สไตล์สำหรับปุ่ม "คำนวณสารอาหาร" */
 .calculate-button {
   display: block;
   width: 100%;
-  max-width: 300px;
-  margin: 20px auto;
-  padding: 12px 16px;
+  max-width: 300px; 
+  margin: 20px auto; 
+  padding: 12px 16px; 
   font-size: 1rem;
-  font-weight: 500;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+  font-weight: 500; 
+  background-color: #28a745; 
+  color: #fff; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
   transition: background-color 0.3s, transform 0.1s;
 }
 
 .calculate-button:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
+  background-color: #218838; 
+  transform: translateY(-2px); 
 }
 
 .calculate-button:active {
-  background-color: #1e7e34;
-  transform: translateY(0);
+  background-color: #1e7e34; 
+  transform: translateY(0); 
 }
 
-/* ปุ่มล้างการเลือก */
+/* สไตล์สำหรับปุ่ม "ล้างการเลือก" */
 .clear-button {
   display: block;
   width: 100%;
-  max-width: 300px;
-  margin: 10px auto;
-  padding: 12px 16px;
+  max-width: 300px; 
+  margin: 10px auto; 
+  padding: 12px 16px; 
   font-size: 1rem;
-  font-weight: 500;
-  background-color: #6c757d;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
+  font-weight: 500; 
+  background-color: #6c757d; 
+  color: #fff; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
   transition: background-color 0.3s, transform 0.1s;
 }
 
 .clear-button:hover {
-  background-color: #5a6268;
-  transform: translateY(-2px);
+  background-color: #5a6268; 
+  transform: translateY(-2px); 
 }
 
 .clear-button:active {
   background-color: #545b62;
-  transform: translateY(0);
+  transform: translateY(0); 
 }
 
-/* รายการอาหารที่เลือกและผลรวมสารอาหาร */
+/* สไตล์สำหรับส่วนแสดงรายการอาหารที่เลือกและผลรวมสารอาหาร */
 .selected-foods, .nutrient-result {
-  margin: 20px 0;
-  padding: 15px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  animation: fadeIn 0.3s ease-in;
+  margin: 20px 0; 
+  padding: 15px; 
+  background: #fff; 
+  border: 1px solid #e0e0e0; 
+  border-radius: 8px; 
+  animation: fadeIn 0.3s ease-in; 
 }
 
 .selected-foods h3, .nutrient-result h3 {
   font-size: 1.2rem;
-  margin: 0 0 10px;
-  color: #333;
+  margin: 0 0 10px; 
+  color: #333; 
 }
 
 .selected-foods ul, .nutrient-result ul {
-  list-style: none;
+  list-style: none; 
   padding: 0;
   margin: 0;
 }
 
 .selected-foods li, .nutrient-result li {
   font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 5px;
+  color: #555; 
+  margin-bottom: 5px; 
 }
 
-/* ข้อความ error */
+/* สไตล์สำหรับข้อความ error */
 .error {
-  text-align: center;
-  color: #e53e3e;
+  text-align: center; 
+  color: #e53e3e; 
   font-size: 1rem;
-  margin: 10px 0;
+  margin: 10px 0; 
 }
 
-/* อนิเมชัน fadeIn */
+/* อนิเมชัน fadeIn สำหรับส่วนที่ปรากฏใหม่ */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; } 
+  to { opacity: 1; } 
 }
 
-/* Responsive Design */
+/* สไตล์สำหรับ responsive design */
 @media (max-width: 768px) {
   .food-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* ลด padding ของ container */
   .container {
     padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
+  /* ปรับ food-grid เป็น 1 คอลัมน์ในหน้าจอขนาดเล็กมาก */
   .food-grid {
     grid-template-columns: 1fr;
   }
 
+  /* ลดขนาดตัวอักษรของหัวข้อ */
   h1 {
     font-size: 1.5rem;
   }
 
+  /* ปรับความกว้างของ select ให้เต็ม */
   .filter select {
     width: 100%;
   }
 
+  /* จัด header ให้เป็นแนวตั้ง */
   .header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-start; /* จัดชิดซ้าย */
   }
 
+  /* เพิ่มระยะห่างด้านบนของปุ่ม admin */
   .admin-button {
     margin-top: 10px;
   }
 
+  /* ปรับขนาดของ checkbox */
   .food-select {
     width: 32px;
     height: 32px;
@@ -370,11 +368,13 @@ h1 {
     font-size: 14px;
   }
 
+  /* ปรับขนาดตัวอักษรและ padding ของปุ่ม */
   .calculate-button, .clear-button {
     font-size: 0.9rem;
     padding: 10px 12px;
   }
 
+  /* ปรับขนาดตัวอักษรของส่วน selected-foods และ nutrient-result */
   .selected-foods h3, .nutrient-result h3 {
     font-size: 1.1rem;
   }
