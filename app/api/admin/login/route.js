@@ -2,10 +2,9 @@ import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-// ตัวอย่างข้อมูลแอดมิน (ควรย้ายไปฐานข้อมูลใน production)
 const adminCredentials = {
   username: 'admin',
-  password: bcrypt.hashSync('admincsc350', 10), // รีเซ็ต password เพื่อความแน่ใจ
+  password: bcrypt.hashSync('admincsc350', 10),
 };
 
 export async function POST(request) {

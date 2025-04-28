@@ -1,18 +1,21 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+'use client'; 
+import React, { useState, useEffect } from 'react'; 
+import Link from 'next/link'; 
 import './styles.css';
 
 async function getData() {
   try {
-    const res = await fetch('http://localhost:3000/api/attractions', {
+    // ส่ง GET request ไปยัง API เพื่อดึงข้อมูลอาหาร
+    const res = await fetch('/api/attractions', {
       cache: 'no-store',
     });
+    
     if (!res.ok) {
-      throw new Error('Failed to fetch data');
+      throw new Error('Failed to fetch data'); 
     }
+
     const data = await res.json();
+    
     return data.map(food => ({
       ...food,
       protein: Number(food.protein) || 0,
@@ -23,34 +26,38 @@ async function getData() {
       sodium: Number(food.sodium) || 0,
     }));
   } catch (error) {
-    console.error('Error fetching data:', error);
-    return [];
+    console.error('Error fetching data:', error); 
+    return []; 
   }
 }
 
+// Component หลักของหน้า Attractions สำหรับแสดงรายการอาหารและคำนวณสารอาหาร
 export default function FoodsPage() {
   const [foods, setFoods] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState('ทั้งหมด');
+  const [categoryFilter, setCategoryFilter] = useState('ทั้งหมด'); 
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedFoods, setSelectedFoods] = useState([]);
+  const [selectedFoods, setSelectedFoods] = useState([]); 
   const [nutrients, setNutrients] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(''); 
 
+  // useEffect สำหรับดึงข้อมูลเมื่อ component โหลดครั้งแรก
   useEffect(() => {
     async function fetchData() {
-      const data = await getData();
-      setFoods(data);
+      const data = await getData(); 
+      setFoods(data); 
       setIsLoading(false);
     }
-    fetchData();
-  }, []);
+    fetchData(); 
+  }, []); 
 
   const categories = ['ทั้งหมด', ...new Set(foods.map(food => food.category))];
 
+  // กรองรายการอาหารตามหมวดหมู่ที่เลือก
   const filteredFoods = categoryFilter === 'ทั้งหมด'
-    ? foods
+    ? foods 
     : foods.filter(food => food.category === categoryFilter);
 
+  // ฟังก์ชันสำหรับจัดการการเลือก/ยกเลิกเลือกอาหาร
   const handleSelectFood = (food) => {
     setSelectedFoods((prev) => {
       if (prev.some((f) => f.food_id === food.food_id)) {
@@ -59,15 +66,18 @@ export default function FoodsPage() {
         return [...prev, food];
       }
     });
-    setNutrients(null);
+    setNutrients(null); 
   };
 
+  // ฟังก์ชันสำหรับคำนวณผลรวมสารอาหารจากอาหารที่เลือก
   const calculateNutrients = () => {
     if (selectedFoods.length === 0) {
-      setError('กรุณาเลือกอาหารอย่างน้อยหนึ่งรายการ');
-      setNutrients(null);
+      setError('กรุณาเลือกอาหารอย่างน้อยหนึ่งรายการ'); 
+      setNutrients(null); 
       return;
     }
+    
+    // คำนวณผลรวมสารอาหารจากอาหารที่เลือก
     const total = selectedFoods.reduce(
       (acc, food) => ({
         protein: acc.protein + (Number(food.protein) || 0),
@@ -77,10 +87,11 @@ export default function FoodsPage() {
         sugar: acc.sugar + (Number(food.sugar) || 0),
         sodium: acc.sodium + (Number(food.sodium) || 0),
       }),
-      { protein: 0, fat: 0, carbohydrates: 0, fiber: 0, sugar: 0, sodium: 0 }
+      { protein: 0, fat: 0, carbohydrates: 0, fiber: 0, sugar: 0, sodium: 0 } 
     );
-    setNutrients(total);
-    setError('');
+    
+    setNutrients(total); 
+    setError(''); 
   };
 
   return (
@@ -95,7 +106,7 @@ export default function FoodsPage() {
         <select
           id="category"
           value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
+          onChange={(e) => setCategoryFilter(e.target.value)} 
         >
           {categories.map(category => (
             <option key={category} value={category}>{category}</option>
@@ -103,10 +114,11 @@ export default function FoodsPage() {
         </select>
       </div>
 
+      {/* แสดงข้อความสถานะหรือรายการอาหาร */}
       {isLoading ? (
-        <p className="message">กำลังโหลด...</p>
+        <p className="message">กำลังโหลด...</p> 
       ) : filteredFoods.length === 0 ? (
-        <p className="message">ไม่พบข้อมูลอาหาร</p>
+        <p className="message">ไม่พบข้อมูลอาหาร</p> 
       ) : (
         <>
           <div className="food-grid">
@@ -116,8 +128,8 @@ export default function FoodsPage() {
                   <input
                     type="checkbox"
                     id={`food-${food.food_id}`}
-                    checked={selectedFoods.some((f) => f.food_id === food.food_id)}
-                    onChange={() => handleSelectFood(food)}
+                    checked={selectedFoods.some((f) => f.food_id === food.food_id)} 
+                    onChange={() => handleSelectFood(food)} 
                   />
                 </div>
                 {food.image_url ? (
@@ -125,7 +137,7 @@ export default function FoodsPage() {
                     src={food.image_url}
                     alt={food.food_name}
                     className="food-image"
-                    loading="lazy"
+                    loading="lazy" 
                   />
                 ) : (
                   <div className="no-image">
@@ -152,6 +164,7 @@ export default function FoodsPage() {
             ))}
           </div>
 
+          {/* ส่วนสำหรับคำนวณสารอาหาร */}
           <div className="nutrient-calculator">
             <button onClick={calculateNutrients} className="calculate-button">
               คำนวณสารอาหาร
